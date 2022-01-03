@@ -1,0 +1,13 @@
+name: ElytraNoLag
+version: '${project.version}'
+main: com.blockstackers.elytranolag
+api-version: 1.16
+authors: [ Blockstackers ]
+description: Fixes and Enhance Elytra's  mechanics
+website: www.blockstackers.xyz
+commands:
+  enl:
+    description: List usable commands
+    usage: /<command>
+    permission: com.blokstackers.enl
+    aliases: elytranolag
