@@ -1,10 +1,13 @@
 # Elytra No Lag
-
-Paper Plugin to add Cooldown for elytras
+Cool Paper Plugin to add Cooldown for Elytras <Br>
+![Preview](https://s10.gifyu.com/images/Animationdd0c59276bfc6732.gif)
 
 # Info
-Tested on 1.17.1 and 1.18
+Supports: 1.16+
 
+**TODO**
+- [ ] Configurable Cooldown
+- [ ] Configurable Message
 
 # Usage
 /enl 
