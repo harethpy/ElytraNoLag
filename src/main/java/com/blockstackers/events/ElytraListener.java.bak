@@ -4,11 +4,14 @@ import com.blockstackers.CooldownManager;
 import com.blockstackers.config.ConfigManager;
 import com.blockstackers.elytranolag;
 import com.destroystokyo.paper.event.player.PlayerElytraBoostEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+import org.jetbrains.annotations.NotNull;
 
 public class ElytraListener implements Listener {
 
@@ -37,19 +40,21 @@ public class ElytraListener implements Listener {
             e.setCancelled(true);
         } else {
             cooldown.add(p.getUniqueId());
-
-            BukkitTask task = new BukkitRunnable() {
-                @Override
-                public void run() {
-                    if (cooldown.timeLeft(p.getUniqueId()) > 0) {
-                        cooldown.displayCooldown(p);
-                    } else {
-                        this.cancel();
-                    }
-                }
-            }.runTaskTimerAsynchronously(plugin, 0L, 20L);
         }
 
+        // Updates Cooldown message
 
+
+        BukkitTask task = new BukkitRunnable() {
+            @Override
+            public void run() {
+
+                if (cooldown.timeLeft(p.getUniqueId()) > 0) {
+                    cooldown.displayCooldown(p);
+                } else {
+                    this.cancel();
+                }
+            }
+        }.runTaskTimer(plugin, 0L, 20L);
     }
 }
