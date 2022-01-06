@@ -36,13 +36,13 @@ public class ElytraListener implements Listener {
         if (cooldown.checkExist(p.getUniqueId()) && cooldown.timeLeft(p.getUniqueId()) > 0) {
             e.setCancelled(true);
         } else {
-            cooldown.add(p.getUniqueId());
+            cooldown.add(p.getUniqueId(), configManager.getCooldownPeriod());
 
             BukkitTask task = new BukkitRunnable() {
                 @Override
                 public void run() {
                     if (cooldown.timeLeft(p.getUniqueId()) > 0) {
-                        cooldown.displayCooldown(p);
+                        cooldown.displayCooldown(p, configManager.getCooldownMsg());
                     } else {
                         this.cancel();
                     }

@@ -17,9 +17,9 @@ public class CooldownManager{
         return playersCooldownList;
     }
 
-    public void add(UUID playerID)
+    public void add(UUID playerID, long cooldown)
     {
-        playersCooldownList.put(playerID, System.currentTimeMillis() + (3 * 1000));
+        playersCooldownList.put(playerID, System.currentTimeMillis() + (cooldown * 1000));
     }
 
     public boolean checkExist(UUID playerID)
@@ -32,9 +32,13 @@ public class CooldownManager{
         return ((playersCooldownList.get(playerID) / 1000) - (System.currentTimeMillis() / 1000));
     }
 
-    public void displayCooldown(Player player)
+    public void displayCooldown(Player player, String message)
     {
-        player.sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("§l You have a cooldown for " + timeLeft(player.getUniqueId()) + ChatColor.RED + " second(s) "));
+        player.sendMessage(
+                ChatMessageType.ACTION_BAR,
+                new TextComponent(
+                message.replace("%cooldown%",
+                        String.valueOf(timeLeft(player.getUniqueId())))));
     }
 
 

@@ -55,6 +55,37 @@ public  class ConfigManager {
         return config.getStringList("whitelist.name");
     }
 
+    // Returns Cooldown Period from config
+    public int getCooldownPeriod()
+    {
+        return config.getInt("cooldown.period");
+    }
+
+
+    public void setCooldownPeriod(int period)
+    {
+        config.set("cooldown.period", period);
+        saveCfg();
+    }
+
+    public String getCooldownMsg()
+    {
+        String msg = config.getString("cooldown.message");
+        assert msg != null;
+        msg = msg.replace("&", "§");
+        return msg;
+    }
+
+    public void setCooldownMsg(String message)
+    {
+        message = message.replace("&", "§");
+        config.set("cooldown.message", message);
+        saveCfg();
+    }
+
+
+
+
     private void saveCfg()
     {
         plugin.saveConfig();
@@ -63,6 +94,7 @@ public  class ConfigManager {
     public void reloadCfg()
     {
         plugin.reloadConfig();
+        this.config = plugin.getConfig();
     }
 
 }

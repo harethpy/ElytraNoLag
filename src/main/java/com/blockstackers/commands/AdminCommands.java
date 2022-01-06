@@ -31,6 +31,8 @@ public class AdminCommands implements CommandExecutor {
                     "§6/enl addlist <player>: §fAdds Player to the Unaffected List",
                     "§6/enl dellist <player>: §Removes Player from the Unaffected List",
                     "§6/enl showlist: §fShows Unaffected Players List.",
+                    "§6/enl cdperiod <second(s)>: §fSet Cooldown Period.",
+                    "§6/enl cdmsg <message>: §fSet Cooldown Message.",
                     "§6/enl reload: §fReloads the Plugin"
             };
 
@@ -87,9 +89,41 @@ public class AdminCommands implements CommandExecutor {
                     configManager.removePlayer(args[1]);
                     player.sendMessage("Player (" + args[1] + ") §c§lHave been removed from the List");
                 }
+
+                // Note:
+                // Not sure If it's better to put int or string, String in the meantime for safe
+                if(args[0].equalsIgnoreCase("cdperiod"))
+                {
+                    try
+                    {
+                        configManager.setCooldownPeriod(Integer.parseInt(args[1]));
+                        player.sendMessage("Cooldown changed to " + args[1] +" second(s)");
+                    } catch (NumberFormatException e)
+                    {
+                        player.sendMessage("§6/enl cdperiod <seconds>");
+                    }
+
+                }
+                if(args[0].equalsIgnoreCase("cdmsg"))
+                {
+                    if(String.join(",", args).contains("%cooldown%"))
+                    {
+                        StringBuilder msg = new StringBuilder();
+                        for (int i = 1; i < args.length; i++) {
+                            msg.append(args[i]).append(" ");
+                        }
+                        System.out.println(msg);
+                        configManager.setCooldownMsg(String.valueOf(msg));
+                        player.sendMessage("§aCooldown Message changed to §r\n" + msg);
+
+                    }
+                    else
+                    {
+                        player.sendMessage("§cInvalid Config, no %cooldown% in message. Make sure it's configured right");
+                    }
+                }
+
             }
-
-
         }
         else
         {
