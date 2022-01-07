@@ -41,7 +41,8 @@ public class ElytraListener implements Listener {
             BukkitTask task = new BukkitRunnable() {
                 @Override
                 public void run() {
-                    if (cooldown.timeLeft(p.getUniqueId()) > 0) {
+                    if (cooldown.timeLeft(p.getUniqueId()) > 0)
+                    {
                         cooldown.displayCooldown(p, configManager.getCooldownMsg());
                     } else {
                         this.cancel();

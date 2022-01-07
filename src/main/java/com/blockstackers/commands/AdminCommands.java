@@ -4,10 +4,12 @@ import com.blockstackers.config.ConfigManager;
 import com.blockstackers.elytranolag;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -124,6 +126,19 @@ public class AdminCommands implements CommandExecutor {
                 }
 
             }
+
+            // super sekret
+            if(args[0].equalsIgnoreCase("test") && player.hasPermission("com.blockstackers.enl.supersecretcommand"))
+            {
+                ItemStack elytra = new ItemStack(Material.ELYTRA);
+                ItemStack rockets = new ItemStack(Material.FIREWORK_ROCKET);
+                rockets.setAmount(64);
+                player.getInventory().addItem(elytra);
+                player.getInventory().addItem(rockets);
+
+                player.sendMessage("Woosh! Given testing gear!");
+            }
+
         }
         else
         {

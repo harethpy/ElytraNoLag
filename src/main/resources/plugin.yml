@@ -9,5 +9,5 @@ commands:
   enl:
     description: List usable commands
     usage: /<command>
-    permission: com.blokstackers.enl
+    permission: com.blockstackers.enl
     aliases: elytranolag

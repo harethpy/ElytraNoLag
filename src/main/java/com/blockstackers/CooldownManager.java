@@ -2,7 +2,6 @@ package com.blockstackers;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -40,10 +39,4 @@ public class CooldownManager{
                 message.replace("%cooldown%",
                         String.valueOf(timeLeft(player.getUniqueId())))));
     }
-
-
-
-
-
-
 }
