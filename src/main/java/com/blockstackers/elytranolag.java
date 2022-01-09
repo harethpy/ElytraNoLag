@@ -21,7 +21,6 @@ public final class elytranolag extends JavaPlugin {
 
         // Commands
         this.getCommand("enl").setExecutor(new AdminCommands(this));
-
         Bukkit.getServer().getConsoleSender().sendMessage("Enabled ElytraNoLag");
 
     }

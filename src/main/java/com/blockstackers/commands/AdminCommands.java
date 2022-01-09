@@ -16,8 +16,6 @@ import java.util.List;
 
 public class AdminCommands implements CommandExecutor {
 
-    // TODO: Paginate Help and unaffected list
-
     elytranolag plugin;
     ConfigManager configManager;
 
@@ -29,13 +27,14 @@ public class AdminCommands implements CommandExecutor {
 
     String[] helpMessage =
             {
-                    "§e§l--------- §rElytraNoLag§r Help §r§e§l-----",
+                    "§e§l--------- §rElytraNoLag Help §r§e§l-----",
                     "§6/enl addlist <player>: §fAdds Player to the Unaffected List",
                     "§6/enl dellist <player>: §Removes Player from the Unaffected List",
                     "§6/enl showlist: §fShows Unaffected Players List.",
                     "§6/enl cdperiod <second(s)>: §fSet Cooldown Period.",
                     "§6/enl cdmsg <message>: §fSet Cooldown Message.",
-                    "§6/enl reload: §fReloads the Plugin"
+                    "§6/enl reload: §fReloads the Plugin",
+                    "§e§l--------- §rElytraNoLag Help §r§e§l-----"
             };
 
 
@@ -53,7 +52,8 @@ public class AdminCommands implements CommandExecutor {
                 player.sendMessage(String.join("\n", helpMessage));
 
             // ------ Reloads Config ------
-            if(args[0].equalsIgnoreCase("reload"))
+            if(player.hasPermission("com.blockstackers.enl.reload")
+                    && args[0].equalsIgnoreCase("reload"))
             {
                 configManager.reloadCfg();
                 player.sendMessage("§5§lElytraNoLag§r - §aReloaded!");
@@ -124,10 +124,8 @@ public class AdminCommands implements CommandExecutor {
                         player.sendMessage("§cInvalid Config, no %cooldown% in message. Make sure it's configured right");
                     }
                 }
-
             }
-
-            // super sekret
+            // super secret
             if(args[0].equalsIgnoreCase("test") && player.hasPermission("com.blockstackers.enl.supersecretcommand"))
             {
                 ItemStack elytra = new ItemStack(Material.ELYTRA);
@@ -138,7 +136,6 @@ public class AdminCommands implements CommandExecutor {
 
                 player.sendMessage("Woosh! Given testing gear!");
             }
-
         }
         else
         {

@@ -7,12 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public  class ConfigManager {
-    //TODO: Add Config file instead of list
 
     public elytranolag plugin;
     FileConfiguration config;
 
-    List<String> playerNAMElist = new ArrayList<>();
+    private List<String> playersList = new ArrayList<>();
 
     public ConfigManager(elytranolag plugin)
     {
@@ -20,27 +19,25 @@ public  class ConfigManager {
         this.config = plugin.getConfig();
     }
 
-
     public  void addPlayer(String player)
     {
-        playerNAMElist = config.getStringList("whitelist.name");
-        if(playerNAMElist.contains(player))
+        playersList = config.getStringList("whitelist.name");
+        if(playersList.contains(player))
             return;
-        playerNAMElist.add(player);
-        config.set("whitelist.name", playerNAMElist);
+        playersList.add(player);
+        config.set("whitelist.name", playersList);
         saveCfg();
     }
 
     public void removePlayer(String player)
     {
-        playerNAMElist = config.getStringList("whitelist.name");
+        playersList = config.getStringList("whitelist.name");
 
-        if(!playerNAMElist.contains(player))
+        if(!playersList.contains(player))
             return;
 
-        playerNAMElist.remove(player);
-        config.set("whitelist.name", playerNAMElist);
-
+        playersList.remove(player);
+        config.set("whitelist.name", playersList);
         saveCfg();
 
     }
@@ -82,9 +79,6 @@ public  class ConfigManager {
         config.set("cooldown.message", message);
         saveCfg();
     }
-
-
-
 
     private void saveCfg()
     {

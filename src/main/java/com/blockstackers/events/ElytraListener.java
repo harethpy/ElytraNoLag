@@ -4,11 +4,13 @@ import com.blockstackers.CooldownManager;
 import com.blockstackers.config.ConfigManager;
 import com.blockstackers.elytranolag;
 import com.destroystokyo.paper.event.player.PlayerElytraBoostEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
+
 
 public class ElytraListener implements Listener {
 
@@ -23,6 +25,20 @@ public class ElytraListener implements Listener {
 
     CooldownManager cooldown = new CooldownManager();
 
+    // Disable Elytra Fly damage during cooldown
+    @EventHandler
+    public void onDamageEvent(PlayerItemDamageEvent event)
+    {
+        Player player = event.getPlayer();
+        if(cooldown.checkExist(player.getUniqueId()))
+        {
+            if ((cooldown.timeLeft(player.getUniqueId()) > 0) && player.isGliding())
+            {
+                event.setCancelled(true);
+            }
+        }
+    }
+
     @EventHandler
     public void onFireworkGlide(PlayerElytraBoostEvent e) {
 
@@ -31,26 +47,26 @@ public class ElytraListener implements Listener {
         if (configManager.existPlayer(p.getName()))
             return;
 
-
-        // Cancel Event & Set Cooldown
+        // Cancel Event
         if (cooldown.checkExist(p.getUniqueId()) && cooldown.timeLeft(p.getUniqueId()) > 0) {
             e.setCancelled(true);
         } else {
-            cooldown.add(p.getUniqueId(), configManager.getCooldownPeriod());
 
-            BukkitTask task = new BukkitRunnable() {
+            // Create Cooldown
+            cooldown.add(p.getUniqueId(), configManager.getCooldownPeriod());
+            new BukkitRunnable() {
                 @Override
                 public void run() {
-                    if (cooldown.timeLeft(p.getUniqueId()) > 0)
-                    {
+                    if (cooldown.timeLeft(p.getUniqueId()) > 0) {
                         cooldown.displayCooldown(p, configManager.getCooldownMsg());
                     } else {
+                        // Clear Action bar
+                        p.sendActionBar(new TextComponent(""));
                         this.cancel();
                     }
                 }
             }.runTaskTimerAsynchronously(plugin, 0L, 20L);
+
         }
-
-
     }
 }

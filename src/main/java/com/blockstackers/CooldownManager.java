@@ -9,12 +9,8 @@ import java.util.UUID;
 
 public class CooldownManager{
 
-    private final HashMap<UUID, Long> playersCooldownList = new HashMap<UUID, Long>();
+    private final HashMap<UUID, Long> playersCooldownList = new HashMap<>();
 
-    public HashMap<UUID, Long> getList()
-    {
-        return playersCooldownList;
-    }
 
     public void add(UUID playerID, long cooldown)
     {
@@ -38,5 +34,6 @@ public class CooldownManager{
                 new TextComponent(
                 message.replace("%cooldown%",
                         String.valueOf(timeLeft(player.getUniqueId())))));
+
     }
 }

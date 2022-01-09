@@ -1,10 +1,8 @@
 # Whitelist of Players that aren't affected by the cooldown.
-# For styling/coloring cooldown message use ( & )
-# The plugin will automatically convert it to &
 whitelist:
   name:
     - testuser
-cooldown:
+cooldown: # Configuration of Cooldown Display Message / Cooldown Period
   period: 5
   message: &lYou have a cooldown for %cooldown% &csecond(s)
 
