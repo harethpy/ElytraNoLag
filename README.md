@@ -1,3 +1,4 @@
+**This project is no longer supported**
 # Elytra No Lag
 Paper Plugin to add Cooldown for Elytras <Br>
   
